@@ -14,15 +14,27 @@
       <table class="table table-striped table-hover">
         <thead>
           <tr>
+            <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
+            <th scope="col">Newsletter?</th>
           </tr>
         </thead>
         <tbody>
-          <!--
-            @TODO: 구독자 목록을 보여주는 코드를 여기에 작성하세요.
-            Listing 16.5 (p. 232)를 참고하세요.
-          -->
+        <% subscribers.forEach((s, i) => { %>
+          <tr>
+          <td><%= i+1 %> </td>
+          <td><%= s.name %> </td>
+          <td><%= s.email %> </td>
+          <td><% if (s.newsletter) { %>
+              <span class="fas fa-check">👍</span>
+          <% } else { %>
+              <span class="fas fa-check">🤞</span>
+          <% } %>
+          </td>
+        </tr>
+        <% }); %>
+          
         </tbody>
       </table>
 

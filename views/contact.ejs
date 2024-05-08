@@ -15,7 +15,7 @@
           <div class="col-md-10 mx-auto col-lg-5 mb-5">
             <form
               class="p-4 p-md-5 border rounded-3 bg-light"
-              action="/"
+              action="/subscribe"
               method="post"
             >
               <div class="form-floating mb-3">
@@ -31,6 +31,7 @@
                 <input
                   type="email"
                   class="form-control"
+                  name = "name"
                   id="floatingInput"
                   placeholder="name@example.com"
                 />
@@ -38,7 +39,8 @@
               </div>
               <div class="checkbox mb-3">
                 <label>
-                  <input type="checkbox" value="subscribe" /> Subscribe to
+                  <input type="checkbox"
+                  value="subscribe" /> Subscribe to
                   Newsletter
                 </label>
               </div>

@@ -5,6 +5,9 @@
 const port = 3000,
   layouts = require("express-ejs-layouts"), // Listing 12.7 (p. 179)
   express = require("express"),
+  homeController = require('./controllers/homeController'),
+  subscribersController = require('./controllers/subscribersController'),
+  errorController = require('./controllers/errorController'),
   app = express();
 
 /**
@@ -14,7 +17,16 @@ const port = 3000,
  * 애플리케이션에 Mongoose 설정
  * ========================================
  */
-const mongoose = "";
+const mongoose = require("mongoose");
+mongoose.connect(
+  "mongodb+srv://eodnjs9906:srRXWelx7bYeKx8L@ut-node.rkbl8lc.mongodb.net/?retryWrites=true&w=majority&appName=UT-node", // 데이터베이스 연결 설정, // 경로 lesson15
+);
+mongoose.connection;
+const db = mongoose.connection;
+
+db.once("open", () => {
+  console.log("Connected to MONGODB!!!");
+});
 
 app.set("port", process.env.PORT || port);
 
@@ -29,8 +41,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // homeController.js
-const homeController = require("./controllers/homeController");
-
 // Listing 12.6 (p. 178)
 app.get("/", homeController.showHome);
 app.get("/transportation", homeController.showTransportation);
@@ -42,11 +52,9 @@ app.get("/transportation", homeController.showTransportation);
  * 구독자 페이지를 위한 라우트 추가나 바꾸기
  * ========================================
  */
-app.get("/contact", homeController.showSignUp);
-app.post("/contact", homeController.postedSignUpForm);
-
-// errorController.js
-const errorController = require("./controllers/errorController");
+app.get("/contact", subscribersController.getSubscriptionPage);
+app.post("/subscribe", subscribersController.saveSubscriber);
+app.get("/subscribers", subscribersController.getAllSubscribers);
 
 // Listing 12.12 (p. 184)
 app.use(errorController.logErrors);
